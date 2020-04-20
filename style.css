@@ -1,0 +1,19 @@
+#scene {
+	background-color: #ddd;
+	width: 240px;
+	height: 960px;
+}
+
+.block-one {
+	width: 30px;
+	height: 30px;
+	box-sizing: border-box;
+	border: 1px solid #fff;
+	float: left;
+}
+.block-one.red {
+	background-color: red;
+}
+.block-one.green {
+	background-color: green;
+}
