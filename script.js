@@ -30,9 +30,9 @@ class Game {
 
 	initEmptyScene () {
 
-		for (var i = 0; i < 32; i++) {
+		for (var i = 0; i < this.size.y; i++) {
 			this.scene[i] = [];
-			for (var j = 0; j < 8; j++) {
+			for (var j = 0; j < this.size.x; j++) {
 				this.scene[i][j] = '';
 			}
 		}
@@ -87,23 +87,25 @@ class Game {
 		return true;
 	}
 
-	isLowerSpaceEmpty() {
-		let figure = this.activeFigure;
+	// isLowerSpaceEmpty() {
+	// 	let figure = this.activeFigure;
 
-		let fx = figure.x;
-		let fy = figure.y + 1;
-		for (var i = 0; i < figure.subScene.length; i++) {
-			let coord = figure.subScene[i];
-			let x = fx + coord[0];
-			let y = fy + coord[1];
+	// 	let fx = figure.x;
+	// 	let fy = figure.y + 1;
+	// 	for (var i = 0; i < figure.subScene.length; i++) {
+	// 		let coord = figure.subScene[i];
+	// 		let x = fx + coord[0];
+	// 		let y = fy + coord[1];
 
-			if (this.scene[y][x] == 'green') {
-				return false;
-			}
-		}
+	// 		if (this.scene[y][x] == 'green') {
+	// 			console.log('lower not empty')
+	// 			return false;
+	// 		}
+	// 	}
 
-		return true;
-	}
+	// 	console.log('lower is empty')
+	// 	return true;
+	// }
 
 	run () {
 		var game = this;
@@ -134,6 +136,38 @@ class Game {
 
 	tryToDestroyRow () {
 		// look for full row
+		// go throw all rows
+		for (var i = 0; i < this.scene.length; i++) {
+			let sceneRow = this.scene[i];
+
+
+			let isRowFull = true;
+
+			for (var j = 0; j < sceneRow.length; j++) {
+				let blockClass = sceneRow[j];
+				if (blockClass != 'green') {
+					isRowFull = false;
+					break;
+				}
+			}
+
+
+			if (isRowFull) {
+				// clear row
+				for (var j = 0; j < this.size.x; j++) {
+					this.scene[i][j] = '';
+				}
+
+				// go up to all 
+				// move all green block down to 1
+				for (var i2 = i; i2 > 0; i2--) {
+					this.scene[i2] = this.scene[i2-1]
+				}
+				console.log('1 down')
+
+			}
+
+		}
 	}
 
 	ifFigureFinished () {
